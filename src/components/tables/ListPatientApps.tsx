@@ -19,7 +19,7 @@ export default function ListPatientApps() {
                 return "blue"
             case "missed":
                 return "red"
-            case "complete":
+            case "completed":
                 return "green"
             case "cancelled":
                 return "orange"
@@ -62,9 +62,11 @@ export default function ListPatientApps() {
                                 </Menu.Target>
                                 <Menu.Dropdown>
                                     <Menu.Item leftSection={<AiFillPhone/>}>Call</Menu.Item>
-                                    <Menu.Item onClick={() => setCancel(p => ({...p, appointment_id: apps.id}))}
-                                               c={'red'}
-                                               leftSection={<MdCancel/>}>Cancel</Menu.Item>
+                                    <Menu.Item
+                                        disabled={apps.status === 'missed' || apps.status === 'completed' || apps.status === 'cancelled'}
+                                        onClick={() => setCancel(p => ({...p, appointment_id: apps.id}))}
+                                        c={'red'}
+                                        leftSection={<MdCancel/>}>Cancel</Menu.Item>
                                 </Menu.Dropdown>
                             </Menu>
                         </Table.Td>

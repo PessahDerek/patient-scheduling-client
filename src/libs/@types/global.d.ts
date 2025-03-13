@@ -58,7 +58,7 @@ declare interface ScheduleDays {
     // schedules: ScheduleObj[];
 }
 
-type AppStatusObj = "upcoming" | "cancelled" | "missed" | "complete"
+type AppStatusObj = "upcoming" | "cancelled" | "missed" | "completed"
 
 declare interface AppointmentObj {
     id: number;

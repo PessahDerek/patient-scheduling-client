@@ -1,4 +1,5 @@
 import axios, {AxiosError} from "axios";
+import authStore from "../../stores/AuthStore";
 
 
 const api = axios.create({
@@ -20,8 +21,7 @@ api.interceptors.request.use(config => {
 
 api.interceptors.response.use(response => response, (err) => {
     if (err instanceof AxiosError && err.status == 401) {
-        const reset = {state: {token: null, loggedIn: false}}
-        localStorage.setItem("auth-store", JSON.stringify(reset))
+        authStore.getState().clearCredentials()
     }
     return Promise.reject(err)
 })

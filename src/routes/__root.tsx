@@ -1,4 +1,5 @@
 import * as React from 'react'
+import {useEffect} from 'react'
 import {createRootRoute, Outlet, useLoaderData} from '@tanstack/react-router'
 import {TanStackRouterDevtools} from '@tanstack/router-devtools'
 import AuthProvider from "../context/Auth";
@@ -6,15 +7,15 @@ import PendingScreen from "../components/PendingScreen";
 import api from "../libs/axios/axios";
 import {useStore} from "zustand/react";
 import HospiStore from "../stores/HospiStore";
-import {useEffect} from "react";
 
 export const Route = createRootRoute({
     component: RootComponent,
     loader: async (): Promise<{ docs: DocObj[], workingDays: ScheduleDays[] }> => {
-        const docs = (await api.get("/app/doctors")).data
+        const docs = (await api.get("/app/users", {params: {type: "doctor"}})).data
         const workingDays = (await api.get("/app/working-days")).data
         return {docs, workingDays}
     },
+
     pendingComponent: PendingScreen
 })
 
